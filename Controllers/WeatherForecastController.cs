@@ -4,6 +4,8 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //  NAZWA KLASY - BEZ CONTROLLER (w tym przypadku WeatherForecast) definiuje link potrzebny do połączenia
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries =
@@ -11,7 +13,7 @@ namespace WebAPI.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         ];
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetWeatherForecas")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
