@@ -1,0 +1,7 @@
+﻿namespace WebAPI.Services
+{
+    public interface IWeatherForecastService
+    {
+        IEnumerable<WeatherForecast> Get();
+    }
+}

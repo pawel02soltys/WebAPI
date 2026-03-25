@@ -1,16 +1,17 @@
 ﻿using WebAPI.Data;
 using WebAPI.DTOs;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Models;
 
 namespace WebAPI.Services
 {
     public class AuthService : IAuthService
     {
-        async Task CheckIfExist(RegisterDTO registerUser)
+        Car newCar = new Car() { Id = 1, UserName = "user1" , PasswordHash = "123"};
+        public string Get()
         {
-            using (var ListOfUsers = new ListOfUsers())
-            {
-                var allData = ListOfUsers.dbUsers;
-            }
+            string respond = "GBO";
+            return respond;
         }
     }
 }

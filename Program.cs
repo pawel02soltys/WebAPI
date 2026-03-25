@@ -1,4 +1,6 @@
 
+using WebAPI.Services;
+
 namespace WebAPI
 {
     public class Program
@@ -12,6 +14,8 @@ namespace WebAPI
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
