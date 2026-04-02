@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
-using WebAPI.DTOs;
 using WebAPI.Models;
 using WebAPI.Services;
 
@@ -12,16 +11,14 @@ namespace WebAPI.Controllers
     public class GetCarsController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IWeatherForecastService _weatherForecastService;
 
-        public GetCarsController(IAuthService authService, IWeatherForecastService weatherForecastService)
+        public GetCarsController(IAuthService authService)
         {
             _authService = authService;
-            _weatherForecastService = weatherForecastService;
         }
 
         [HttpGet(Name = "PostLogin")]
-        public string Get()
+        public IEnumerable<Car> Get()
         {
             return _authService.Get();
         }

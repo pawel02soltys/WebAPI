@@ -1,7 +1,11 @@
-﻿namespace WebAPI.Services
+﻿using WebAPI.Models;
+
+namespace WebAPI.Services
 {
     public interface IAuthService
     {
-        string Get();
+        IEnumerable<Car> Get();
+        IEnumerable<User> GetUser();
+        Task PutUser();
     }
 }
