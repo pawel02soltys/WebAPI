@@ -11,19 +11,23 @@ namespace WebAPI.Services
             return cars();
         }
 
-        async public Task PutUser()
+        async public Task PostUser()
         {
-            using var usersDbConnection = new DbConnection();
-            var user = usersDbConnection.dbUsers;
-            user.Add(new User
+            using var usersDbConnection = new DbConnectionContext();
+            var users = usersDbConnection.dbUsers;
+
+            users.Add(new User
             {
                 Username = "admin",
                 Passwd = "admin"
             });
+
+            // 3. KLUCZOWE: Zapisanie zmian w bazie danych!
+            await usersDbConnection.SaveChangesAsync();
         }
         public IEnumerable<User> GetUser()
         {
-            using var usersDbConnection = new DbConnection();
+            using var usersDbConnection = new DbConnectionContext();
             return usersDbConnection.dbUsers
                 .AsNoTracking()
                 .Select(user => new User
@@ -37,7 +41,7 @@ namespace WebAPI.Services
 
         List<Car> cars()
         {
-            using var carsDbConnection = new DbConnection();
+            using var carsDbConnection = new DbConnectionContext();
             return carsDbConnection.dbCars
                 .AsNoTracking()
                 .Select(car => new Car

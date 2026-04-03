@@ -6,6 +6,6 @@ namespace WebAPI.Services
     {
         IEnumerable<Car> Get();
         IEnumerable<User> GetUser();
-        Task PutUser();
+        Task PostUser();
     }
 }

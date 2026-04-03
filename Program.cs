@@ -1,5 +1,9 @@
 
+using System.Data.Common;
 using WebAPI.Services;
+using WebAPI.Data;
+using Microsoft.EntityFrameworkCore.InMemory;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -16,6 +20,7 @@ namespace WebAPI
             builder.Services.AddOpenApi();
             builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddDbContext<DbConnectionContext>();
 
             var app = builder.Build();
 
