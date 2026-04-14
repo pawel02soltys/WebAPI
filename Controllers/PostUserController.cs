@@ -16,16 +16,30 @@ namespace WebAPI.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
-        // Zmieniłem zwracany typ na Task<IActionResult>, co jest dobrą praktyką dla metod POST, 
-        // które zazwyczaj nie zwracają listy wszystkich użytkowników.
-        public async Task<IActionResult> PostUser()
+        [HttpGet]
+        public ActionResult Get()
         {
-            // Wywołanie logiki z serwisu
-            await _authService.PostUser();
+            if (_authService.GetUser(2) == 2)
+            {
+                return Ok(new { message = "Użytkownik o ID 2 istnieje." });
+            }
+            else
+            {
+                return NotFound(new { message = "Użytkownik o ID 2 nie istnieje." });
+            }
+        }
 
-            // Zwrócenie statusu 200 OK po pomyślnym dodaniu użytkownika
-            return Ok(new { message = "Pomyślnie dodano użytkownika admin." });
+        [HttpPost]
+        public ActionResult Post()
+        {
+            if (Get() is OkObjectResult okResult)
+            {
+                return Ok(new { message = "Użytkownik o ID 2 istnieje." });
+            }
+            else
+            {
+                return NotFound(new { message = "Użytkownik o ID 2 nie istnieje." });
+            }
         }
     }
 }

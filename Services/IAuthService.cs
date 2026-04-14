@@ -5,7 +5,6 @@ namespace WebAPI.Services
     public interface IAuthService
     {
         IEnumerable<Car> Get();
-        IEnumerable<User> GetUser();
-        Task PostUser();
+        int GetUser(int id);
     }
 }

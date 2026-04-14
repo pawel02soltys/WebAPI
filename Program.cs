@@ -2,8 +2,8 @@
 using System.Data.Common;
 using WebAPI.Services;
 using WebAPI.Data;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace WebAPI
 {
