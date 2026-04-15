@@ -19,21 +19,31 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            if (_authService.GetUser(id) == 11)
+            var user = _authService.GetUser(id);
+            if (user != null)
             {
-                return Ok(new { message = "Użytkownik o ID 11 istnieje." });
+                return Ok(user);
             }
             else
             {
-                return NotFound(new { message = "Użytkownik o ID 11 nie istnieje." });
+                return NotFound(new { message = $"Użytkownik o ID {id} nie istnieje." });
             }
         }
 
         [HttpPost]
         public ActionResult Post([FromBody] User newUser)
         {
-            _authService.CreateUser(newUser = new User { Id = 11, Passwd = "passwd", Username = "newuser" });
-            return Ok(new { message = "POST request received." });
+            if (_authService.UsernameExists(newUser.Username))
+            {
+                // Zwracamy status 409 Conflict - idealny do informowania o duplikatach
+                return Conflict(new { message = "Ten login jest już zajęty!" });
+            }
+
+            // Krok 2: Serwis tworzy użytkownika i nadaje mu nowe ID
+            var createdUser = _authService.CreateUser(newUser);
+
+            // Krok 3: Zwracamy złoty standard 201 Created
+            return CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
         }
     }
 }

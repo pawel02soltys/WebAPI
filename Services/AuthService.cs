@@ -47,9 +47,18 @@ namespace WebAPI.Services
             }
         }   
 
-        public async Task CreateUser(User newUser)
+        public User CreateUser(User newUser)
         {
-            GetDummyUsers().Add(newUser);
+            var users = GetDummyUsers();
+            var newId = users.Max(u => u.Id) + 1; // Generowanie nowego ID
+            newUser.Id = newId;
+            users.Add(newUser);
+            return newUser; // Zwracamy utworzonego użytkownika z przypisanym ID
+        }
+
+        public bool UsernameExists(string username)
+        {
+            return GetDummyUsers().Any(user => user.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

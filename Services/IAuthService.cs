@@ -6,6 +6,7 @@ namespace WebAPI.Services
     {
         IEnumerable<Car> Get();
         int GetUser(int id);
-        Task CreateUser(User newUser);
+        bool UsernameExists(string username);
+        User CreateUser(User newUser);
     }
 }
