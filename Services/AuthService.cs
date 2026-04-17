@@ -26,33 +26,41 @@ namespace WebAPI.Services
         {
             return cars();
         }
-
         List<Car> cars()
         {
             using var carsDbConnection = new DbConnectionContext();
         
             return carsDbConnection.dbCars.ToList();
         }
+        List<User> Users()
+        {
+            using var usersDbConnection = new DbConnectionContext();
+        
+            return usersDbConnection.dbUsers.ToList();
+        }
 
         public int GetUser(int id)
         {
-            if (GetDummyUsers().Any(user => user.Id == id))
+            if (Users().Any(user => user.Id == id))
             {
                 return id;
             }
             else
             {
-                var defaultId = from user in GetDummyUsers() select user.Id;
-                return defaultId.First(); // Zwraca 1, jeśli użytkownik o podanym ID nie istnieje
+                return 0;
             }
         }   
 
         public User CreateUser(User newUser)
         {
-            var users = GetDummyUsers();
-            var newId = users.Max(u => u.Id) + 1; // Generowanie nowego ID
-            newUser.Id = newId;
-            users.Add(newUser);
+            using var userDbConnection = new DbConnectionContext();
+            {
+                var users = userDbConnection.dbUsers.ToList();
+                var newId = users.Max(u => u.Id) + 1; // Generowanie nowego ID
+                newUser.Id = newId;
+                userDbConnection.dbUsers.Add(newUser);
+                userDbConnection.SaveChanges();
+            }
             return newUser; // Zwracamy utworzonego użytkownika z przypisanym ID
         }
 

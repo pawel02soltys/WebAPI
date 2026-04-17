@@ -16,18 +16,10 @@ namespace WebAPI.Controllers
             _authService = authService;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        [HttpGet("{id}/{haslo}")]
+        public ActionResult Get(int id, string haslo)
         {
-            var user = _authService.GetUser(id);
-            if (user != null)
-            {
-                return Ok(user);
-            }
-            else
-            {
-                return NotFound(new { message = $"Użytkownik o ID {id} nie istnieje." });
-            }
+            return Ok(new { message = $"Object {id}" });
         }
 
         [HttpPost]
